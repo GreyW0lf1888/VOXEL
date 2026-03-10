@@ -1,0 +1,1 @@
+{\n  \"name\": \"voxel-game\",\n  \"version\": \"1.0.0\",\n  \"description\": \"A voxel game built using JavaScript.\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"start\": \"node index.js\"\n  },\n  \"keywords\": [\n    \"voxel\",\n    \"game\",\n    \"javascript\"\n  ],\n  \"author\": \"GreyW0lf1888\",\n  \"license\": \"MIT\"\n}
