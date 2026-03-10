@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voxel Game</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #87CEEB;
+        }
+        canvas {
+            display: block;
+        }
+        #inventory {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .slot {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #fff;
+            background: rgba(255, 255, 255, 0.5);
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <div id="inventory"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('gameCanvas') });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        let player;
+        let inventory = new Array(10).fill(null);
+
+        function initializeGame() {
+            createWorld();
+            createInventory();
+            animate();
+        }
+
+        function createWorld() {
+            const geometry = new THREE.BoxGeometry(1, 1, 1);
+            const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            const cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+
+            camera.position.z = 5;
+        }
+
+        function createInventory() {
+            const inventoryDiv = document.getElementById('inventory');
+            inventory.forEach((item, index) => {
+                const slot = document.createElement('div');
+                slot.classList.add('slot');
+                inventoryDiv.appendChild(slot);
+            });
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        initializeGame();
+    </script>
+</body>
+</html>
